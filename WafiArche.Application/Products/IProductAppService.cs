@@ -10,5 +10,6 @@ namespace WafiArche.Application.Products
     public interface IProductAppService
     {
         Product CreateProduct(Product product);
+        IEnumerable<Product> GetAll();
     }
 }

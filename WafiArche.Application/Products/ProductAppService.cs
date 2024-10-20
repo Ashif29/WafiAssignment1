@@ -22,5 +22,10 @@ namespace WafiArche.Application.Products
             _context.SaveChanges();
             return product;
         }
+
+        public IEnumerable<Product> GetAll()
+        {
+            return _context.Products.ToList();
+        }
     }
 }

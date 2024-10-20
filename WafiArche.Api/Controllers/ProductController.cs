@@ -22,5 +22,12 @@ namespace WafiArche.Api.Controllers
 
             return Ok(alpha);
         }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Product>> GetAllProducts()
+        {
+            var products = _productAppService.GetAll();
+            return Ok(products);
+        }
     }
 }
