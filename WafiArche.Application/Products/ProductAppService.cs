@@ -27,5 +27,22 @@ namespace WafiArche.Application.Products
         {
             return _context.Products.ToList();
         }
+        public Product GetProductById(int id)
+        {
+            return _context.Products.FirstOrDefault(x => x.Id == id);
+        }
+
+        public bool UpdateProduct(Product product)
+        {
+            _context.Products.Update(product);
+            return _context.SaveChanges() > 0;
+        }
+
+        public bool DeleteProduct(int id)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            _context.Products.Remove(product);
+            return _context.SaveChanges() > 0;
+        }
     }
 }

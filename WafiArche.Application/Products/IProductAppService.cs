@@ -11,5 +11,9 @@ namespace WafiArche.Application.Products
     {
         Product CreateProduct(Product product);
         IEnumerable<Product> GetAll();
+        Product GetProductById(int id);
+        bool UpdateProduct(Product product);
+        bool DeleteProduct(int id);
+
     }
 }

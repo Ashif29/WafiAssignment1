@@ -15,6 +15,7 @@ namespace WafiArche.Application.Mappings
         {
             CreateMap<ProductDto, Product>().ReverseMap();
             CreateMap<ProductCreateDto, Product>().ReverseMap();
+            CreateMap<ProductUpdateDto, Product>().ReverseMap();
         }
     }
 }
