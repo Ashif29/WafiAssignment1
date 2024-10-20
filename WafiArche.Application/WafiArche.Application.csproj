@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WafiArche.Domain\WafiArche.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
