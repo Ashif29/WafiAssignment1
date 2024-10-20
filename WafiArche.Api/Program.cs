@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using WafiArche.Application.Mappings;
 using WafiArche.Application.Products;
 using WafiArche.EntityFrameworkCore.Data;
@@ -12,6 +13,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 // Register AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+// Configure Serilog for logging
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
 
