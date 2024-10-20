@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WafiArche.Application.Products;
+using WafiArche.Application.Products.Dtos;
 using WafiArche.Domain.Products;
 
 namespace WafiArche.Api.Controllers
@@ -10,24 +12,27 @@ namespace WafiArche.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductAppService _productAppService;
-        public ProductController(IProductAppService productAppService)
+        private readonly IMapper _mapper;
+        public ProductController(IProductAppService productAppService, IMapper mapper)
         {
             _productAppService = productAppService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public ActionResult<Product> CreateProduct(Product product)
+        public ActionResult<ProductDto> CreateProduct([FromBody] ProductCreateDto productCreateDto)
         {
+            Product product = _mapper.Map<Product>(productCreateDto);
             var alpha = _productAppService.CreateProduct(product);
-
             return Ok(alpha);
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> GetAllProducts()
+        public ActionResult<IEnumerable<ProductDto>> GetAllProducts()
         {
-            var products = _productAppService.GetAll();
-            return Ok(products);
+            IEnumerable<Product> productList = _productAppService.GetAll();
+
+            return Ok(_mapper.Map<List<ProductDto>>(productList));
         }
     }
 }

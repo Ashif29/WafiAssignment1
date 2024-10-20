@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WafiArche.Application.Mappings;
 using WafiArche.Application.Products;
 using WafiArche.EntityFrameworkCore.Data;
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
 );
+// Register AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
 
