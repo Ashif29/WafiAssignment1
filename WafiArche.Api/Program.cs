@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using WafiArche.Api.Conveerters;
 using WafiArche.Application.Mappings;
 using WafiArche.Application.Products;
+using WafiArche.Application.PublicHolidays;
 using WafiArche.EntityFrameworkCore.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +26,13 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
+builder.Services.AddScoped<IPublicHolidayService, PublicHolidayService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
